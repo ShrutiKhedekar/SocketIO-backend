@@ -48,6 +48,7 @@ class Profile {
                 if (err) {
                     reject(new Error(err))
                 } else {
+                    console.log(data)
                     if (!!data && data.length !== 0) {
                         let about = data[0].about;
 

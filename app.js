@@ -22,9 +22,9 @@ class Server {
 
   constructor() {
     this.initExpress();
-    //  this.initDatabaseCon();
+    this.initDatabaseCon();
     this.initErrorHandler();
-    this.initRoutes();
+  //  this.initRoutes();
     //  this.initStart();
     // this.socketInit();
   }
@@ -84,12 +84,13 @@ class Server {
     let that = this;
     db.connect('mongodb://localhost:27017', function (err) {
       if (err) {
+        console.log(err)
         console.log('Unable to connect to Mongo.')
         process.exit(1)
       } else {
         console.log("connected");
-        that.initRoutes();
-        router.load(app, './controllers');
+       that.initRoutes();
+        //router.load(app, './controllers');
       }
     });
   }
@@ -129,7 +130,7 @@ class Server {
 
   }
   initRoutes() {
-    // router.load(app, './controllers');
+     router.load(app, './controllers');
     this.socketInit();
     this.initStart()
   }
