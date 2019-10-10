@@ -10,7 +10,9 @@ class Router {
 
 
     //Called once during initial server startup
-    load(app, folderName) {
+    load(app, token, folderName) {
+
+        // console.log(token)
 
         if (!this.startFolder) this.startFolder = path.basename(folderName);
 
@@ -21,7 +23,7 @@ class Router {
 
             if (stat.isDirectory()) {
                 //Recursively walk-through folders
-                this.load(app, fullName);
+                this.load(app,token, fullName);
             } else if (file.toLowerCase().indexOf('.js')) {
                 //Grab path to JavaScript file and use it to construct the route
                 let dirs = path.dirname(fullName).split(path.sep);
@@ -39,7 +41,14 @@ class Router {
                 const controllerClass = require('../' + fullName);
                 const controller = new controllerClass(router);
                 //Associate the route with the router
+
+                app.use(function(req,res,next){
+                    req.app.locals.token111 = token;
+                    next();
+                   });
+                   
                 app.use(baseRoute, router);
+                
             }
         });
     }
