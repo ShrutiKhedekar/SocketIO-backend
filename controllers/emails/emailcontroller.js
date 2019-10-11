@@ -8,15 +8,29 @@ class emailController {
         router.get('/emails', this.emails.bind(this));
     }
 
-    emails(req,res){
+    async emails(req, res) {
 
-        // console.log(req.app.locals.token111)
 
-        // console.log("------------>", this)
-        emails.emails(req.app.locals.token111);
+        try {
+            let data = await emails.emails(req.app.locals.token111);
+            res.status(200)
+                .json({
+                    'responseCode': 200,
+                    'responseDesc': "success",
+                    'data': data
+                });
+
+        } catch (e) {
+            res.status(200)
+                .json({
+                    'responseCode': 200,
+                    'responseDesc': "success",
+                    'data': data
+                });
+        }
 
     }
-   
+
 
 }
 
